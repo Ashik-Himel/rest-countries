@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-const Country = ({country}) => {
+const Country = ({country, handleAddVisited, handleRemoveVisited}) => {
   const {name, flags, area, population} = country;
-  console.log(country);
   const [isVisited, setIsVisited] = useState(false);
 
   const handleClick = () => {
@@ -22,8 +21,11 @@ const Country = ({country}) => {
         <p>Area: {area} S. KM</p>
         <p>Population: {population}</p>
       </div>
-      <p className="mb-4 text-primary font-bold" style={isVisited ? {color: 'white'} : null}>{isVisited ? 'Yes! I visited this country!' : 'I wish I will go to this country!'}</p>
-      <a href="#/" className="btn btn-primary text-white normal-case text-base" style={isVisited ? {backgroundColor: 'white', color: '#4A07DA'} : null} onClick={handleClick}>{isVisited ? 'Visited': 'Going'}</a>
+      <p className="mb-4 text-primary font-bold" style={isVisited ? {color: 'white'} : null}>{isVisited ? 'Hurrah! I visited this country!!!' : 'I wish I will go to this country!'}</p>
+      <a href="#/" className="btn btn-primary text-white normal-case text-base" style={isVisited ? {backgroundColor: 'white', color: '#4A07DA'} : null} onClick={() => {
+        handleClick();
+        isVisited ? handleRemoveVisited(name.common) : handleAddVisited(name.common, flags.png);
+      }}>{isVisited ? 'Visited': 'Going'}</a>
     </div>
   );
 };
